@@ -1,9 +1,9 @@
-grid = document.body.children[0].innerText
+grid = document.body.children[0].innerText           // arbitrary path to the data in the dom
          .split('\n')
-         .map(line => line.split(/\s+/))
-         .slice(0, -1)
-         .map(row => row.map(n => parseInt(n, 10)))
-         .map(row => row.sort((l, r) => r - l))
+         .map(line => line.split(/\s+/))             // double split to get arrays of arrays
+         .slice(0, -1)                               // garbage extra line removed
+         .map(row => row.map(n => parseInt(n, 10)))  // convert all to numbers
+         .map(row => row.sort((l, r) => r - l))      // sort descending for easier checking
 //> (16) [Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16)]
 //>   0: (16) [2171, 2015, 1984, 1809, 1731, 1715, 1649, 1295, 981, 719, 349, 181, 76, 62, 52, 51]
 //>   1: (16) [1685, 1658, 1641, 1548, 1506, 960, 670, 610, 533, 242, 161, 107, 99, 86, 84, 78]
@@ -23,6 +23,7 @@ grid = document.body.children[0].innerText
 //>   15: (16) [2713, 2663, 2650, 2397, 2351, 2312, 1824, 1192, 703, 510, 333, 157, 125, 106, 94, 89]
 grid.reduce((total, row) => {
   let result = 0;
+  // run through each item in the list checking only against the rest of the list which are the numbers smaller than the current item
   for (let outer = 0; outer <= row.length - 2; outer++) {
     for (let inner = outer + 1; inner <= row.length - 1; inner++) {
       if (row[outer] % row[inner] === 0) {

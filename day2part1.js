@@ -1,4 +1,7 @@
-grid = document.body.children[0].innerText.split('\n').map(line => line.split(/\s+/)).slice(0, -1)
+grid = document.body.children[0].innerText
+         .split('\n')
+         .map(line => line.split(/\s+/))
+         .slice(0, -1)
 //> (16) [Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16)]
 //>   0: (16) ["62", "1649", "1731", "76", "51", "1295", "349", "719", "52", "1984", "2015", "2171", "981", "1809", "181", "1715"]
 //>   1: (16) ["161", "99", "1506", "1658", "84", "78", "533", "242", "1685", "86", "107", "1548", "670", "960", "1641", "610"]
@@ -17,5 +20,7 @@ grid = document.body.children[0].innerText.split('\n').map(line => line.split(/\
 //>   14: (16) ["2208", "2236", "1451", "621", "1937", "1952", "865", "61", "1934", "49", "1510", "50", "1767", "59", "194", "1344"]
 //>   15: (16) ["94", "2312", "2397", "333", "1192", "106", "2713", "2351", "2650", "2663", "703", "157", "89", "510", "1824", "125"]
 //>   length: 16
-grid.reduce((total, row) => total + Math.max.apply(null, row) - Math.min.apply(null, row), 0);
+grid.reduce((total, row) => 
+  total + Math.max.apply(null, row) - Math.min.apply(null, row)
+, 0);
 //> 44216
