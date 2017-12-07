@@ -4,13 +4,15 @@ let data =
     .split(/\s+/)
     .map(n => parseInt(n, 10))
 
-const max = () => data.indexOf(Math.max.apply(null, data))
-
+let cycles = 0
 let cache = { }
-const saveState = () => cache[ data.join(',') ] = true
-const stateRepeated = () => !!cache[ data.join(',') ]
+const saveState = () => cache[ data.join(',') ] = cycles
+const stateRepeated = () => cache[ data.join(',') ]
 
-function distribute(value, position) {
+const max = () => 
+    data.indexOf(Math.max.apply(null, data))
+
+function distribute({ position, value }) {
     while ( value > 0 ) {
         position = (position + 1) % data.length
         data[ position ]++
@@ -18,16 +20,18 @@ function distribute(value, position) {
     }
 }
 
-let cycles = 0
-while (!stateRepeated()) {
-    saveState()
+function removeMax() {
+    let position = max()
+    let value = data[ position ]
+    data[ position ] = 0
 
-    let largest = max()
-    let value = data[ largest ]
-    data[ largest ] = 0
-    distribute(value, largest)
-
-    cycles++;
+    return { position, value }
 }
 
-console.log(cycles)
+while (!stateRepeated()) {
+    saveState()
+    distribute(removeMax())
+    cycles++
+}
+
+console.log(`cycles: ${cycles}, cycle time: ${cycles - stateRepeated()}`)
