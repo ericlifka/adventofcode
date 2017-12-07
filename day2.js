@@ -9,12 +9,12 @@ grid =
 //>   0: (16) [2171, 2015, 1984, 1809, 1731, 1715, 1649, 1295, 981, 719, 349, 181, 76, 62, 52, 51]
 //>   ... snip ...
 
-console.log(
+console.log('part1',
 grid.reduce((total, row) => 
   total + Math.max.apply(null, row) - Math.min.apply(null, row)
 , 0))
 
-console.log(
+console.log('part2',
 grid.reduce((total, row) => {
   let result = 0;
   for (let outer = 0; outer <= row.length - 2; outer++) {
