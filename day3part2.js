@@ -28,7 +28,6 @@ function sequenceGenerator(start = 0) {
 
 function getNextBigger(target) {
     let blockSize = 1;
-    let current = 1;
     let coord = { x: 0, y: 0 };
     let directionGenerators = {
         x: sequenceGenerator(),
