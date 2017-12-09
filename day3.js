@@ -26,50 +26,11 @@ function sequenceGenerator(start = 0) {
     }
 }
 
-function getNextBigger(target) {
-    let blockSize = 1
-    let coord = { x: 0, y: 0 }
-    let directionGenerators = {
-        x: sequenceGenerator(),
-        y: sequenceGenerator(3)
-    }
-    let direction = { 
-        x: directionGenerators.x(),
-        y: directionGenerators.y()
-    }
-
-    while (true) {
-        for (let doTwice = 0; doTwice < 2; doTwice++) {
-            for (let blockIndex = 0; blockIndex < blockSize; blockIndex++) {
-                coord.x += direction.x
-                coord.y += direction.y
-
-                let sum = neighborCoords(coord)
-                    .map(getVal)
-                    .reduce((total, val) => total + val)
-
-                if (sum > target)
-                    return {sum, coord}
-                    
-                setVal(coord, sum)
-            }
-
-            direction.x = directionGenerators.x()
-            direction.y = directionGenerators.y()
-        }
-
-        blockSize++
-    }
-}
-
-function getCoord(target) {
-    if (target <= 0) return null
-    if (target === 1) return { x: 0, y: 0 }
-
+function iterateSpiralNumbers(callback) {
     let current = 1
     let blockSize = 1
-
     let coord = { x: 0, y: 0 }
+
     let directionGenerators = {
         x: sequenceGenerator(),
         y: sequenceGenerator(3)
@@ -86,8 +47,9 @@ function getCoord(target) {
                 coord.x += direction.x
                 coord.y += direction.y
 
-                if (current === target)
-                    return coord
+                let result = callback(current, coord)
+                if (result !== undefined) 
+                    return result
             }
 
             direction.x = directionGenerators.x()
@@ -98,8 +60,20 @@ function getCoord(target) {
     }
 }
 
-let coord = getCoord(312051)
-console.log('part1', Math.abs(coord.x) + Math.abs(coord.y), coord)
+console.log('part1',
+iterateSpiralNumbers((number, coord) => {
+    if (number === 312051)
+        return { distance: Math.abs(coord.x) + Math.abs(coord.y), coord }
+}))
 
-let result = getNextBigger(312051)
-console.log('part2', result)
+console.log('part2',
+iterateSpiralNumbers((number, coord) => {
+    let sum = neighborCoords(coord)
+        .map(getVal)
+        .reduce((total, val) => total + val)
+
+    setVal(coord, sum)
+
+    if (sum > 312051)
+        return { sum, coord }
+}))
