@@ -5,9 +5,6 @@ grid =
     .split(/\s+/)
     .map(n => parseInt(n, 10))
     .sort((l, r) => r - l))
-//> (16) [Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16), Array(16)]
-//>   0: (16) [2171, 2015, 1984, 1809, 1731, 1715, 1649, 1295, 981, 719, 349, 181, 76, 62, 52, 51]
-//>   ... snip ...
 
 console.log('part1',
 grid.reduce((total, row) => 
