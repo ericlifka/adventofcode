@@ -10,11 +10,10 @@ const neighborCoords = ({x, y}) =>
 function sequenceGenerator(start = 0) {
     let seq = [ 1, 0, -1, 0 ]
     let cur = start
-    let len = seq.length
 
     return function () {
         let val = seq[ cur ]
-        cur = (cur + 1) % len
+        cur = (cur + 1) % seq.length
         return val
     }
 }
