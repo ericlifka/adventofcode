@@ -3,16 +3,9 @@ const coordToKey = ({x, y}) => `${x}.${y}`
 const getVal = (coord) => cache[ coordToKey(coord) ] || 0
 const setVal = (coord, val) => cache[ coordToKey(coord) ] = val
 
-const neighborCoords = ({x, y}) => [
-    { x: x + 1, y },
-    { x: x - 1, y },
-    { x, y: y + 1 },
-    { x, y: y - 1 },
-    { x: x - 1, y: y + 1 },
-    { x: x + 1, y: y - 1 },
-    { x: x + 1, y: y + 1 },
-    { x: x - 1, y: y - 1 }
-]
+const neighborCoords = ({x, y}) => 
+    [ [1, 0], [-1, 0], [0, 1], [0, -1], [-1, 1], [1, -1], [1, 1], [-1, -1] ]
+        .map(([dx, dy]) => ({ x: x + dx, y: y + dy }))
 
 function sequenceGenerator(start = 0) {
     let seq = [ 1, 0, -1, 0 ]
