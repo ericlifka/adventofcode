@@ -1,3 +1,5 @@
+import { splitChar } from './common'
+
 let maxSeen = 0
 const registers = { }
 const getR = register => registers[ register ]
@@ -6,9 +8,6 @@ const setR = (register, value) => {
     if (value > maxSeen)
         maxSeen = value
 }
-
-const splitChar = char => 
-    str => str.split(char)
 
 const actionFn = (register, direction, value) =>
     () =>

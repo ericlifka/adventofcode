@@ -1,7 +1,6 @@
-const removeComma = str => 
-    str[ str.length - 1 ] === ',' ?
-        str.slice(0, -1) :
-        str
+import { getInput
+       , removeComma 
+} from './common'
 
 const NODE_CACHE = { }
 const cache = node => NODE_CACHE[ node.name ] = node
@@ -51,7 +50,7 @@ function findImbalance(node) {
 }
 
 
-let nodes = input()
+let nodes = getInput('day7')
     .split('\n')
     .map(desc => desc.split(' '))
     .map(buildNode)
@@ -64,8 +63,3 @@ while (top.parent)
 console.log(`part1: ${top.name} is the top of the tree`)
 calcWeight(top)
 findImbalance(top)
-
-
-function input() {
-return `... snip ...`
-}
