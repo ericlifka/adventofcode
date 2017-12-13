@@ -1,15 +1,15 @@
 import { getInput
        , parseDecimal
+       , coord
+       , coordCacheKey
+       , gridNeighbors
+       , gridDistance
 } from './common'
 
-let cache = { '0.0': 1 }
-const coordToKey = ({x, y}) => `${x}.${y}`
-const getVal = (coord) => cache[ coordToKey(coord) ] || 0
-const setVal = (coord, val) => cache[ coordToKey(coord) ] = val
-
-const neighborCoords = ({x, y}) => 
-    [ [1, 0], [-1, 0], [0, 1], [0, -1], [-1, 1], [1, -1], [1, 1], [-1, -1] ]
-        .map(([dx, dy]) => ({ x: x + dx, y: y + dy }))
+let cache = { }
+const getVal = coord => cache[ coordCacheKey(coord) ] || 0
+const setVal = (coord, val) => cache[ coordCacheKey(coord) ] = val
+setVal(coord(), 1) // center of grid is base case and must be set
 
 function sequenceGenerator(start = 0) {
     let seq = [ 1, 0, -1, 0 ]
@@ -25,7 +25,7 @@ function sequenceGenerator(start = 0) {
 function iterateSpiralNumbers(callback) {
     let current = 1
     let blockSize = 1
-    let coord = { x: 0, y: 0 }
+    let position = coord()
 
     let directionGenerators = {
         x: sequenceGenerator(),
@@ -40,10 +40,10 @@ function iterateSpiralNumbers(callback) {
         for (let doTwice = 0; doTwice < 2; doTwice++) {
             for (let blockIndex = 0; blockIndex < blockSize; blockIndex++) {
                 current++
-                coord.x += direction.x
-                coord.y += direction.y
+                position.x += direction.x
+                position.y += direction.y
 
-                let result = callback(current, coord)
+                let result = callback(current, position)
                 if (result !== undefined) 
                     return result
             }
@@ -59,19 +59,19 @@ function iterateSpiralNumbers(callback) {
 const target = parseDecimal(getInput('day3'))
 
 console.log('part1',
-iterateSpiralNumbers((number, coord) => {
+iterateSpiralNumbers((number, position) => {
     if (number === target)
-        return { distance: Math.abs(coord.x) + Math.abs(coord.y), coord }
+        return { distance: gridDistance(position), position }
 }))
 
 console.log('part2',
-iterateSpiralNumbers((number, coord) => {
-    let sum = neighborCoords(coord)
+iterateSpiralNumbers((number, position) => {
+    let sum = gridNeighbors(position)
         .map(getVal)
         .reduce((total, val) => total + val)
 
-    setVal(coord, sum)
+    setVal(position, sum)
 
     if (sum > target)
-        return { sum, coord }
+        return { sum, position }
 }))
