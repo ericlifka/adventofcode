@@ -1,4 +1,5 @@
 import { getInput
+       , numberArray
 } from './common'
 
 const pad = str =>
@@ -7,9 +8,6 @@ const pad = str =>
 
 const tohex = num =>
     pad(num.toString(16).toLowerCase())
-
-const numberArray = size =>
-    [...Array(size)].map((_, index) => index)
 
 const getCharCode = letter =>
     letter.charCodeAt(0)

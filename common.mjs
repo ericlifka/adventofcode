@@ -17,6 +17,9 @@ export const parseDecimal = str =>
 export const ascending = (l, r) => l - r
 export const descending = (l, r) => r - l
 
+export const indexIdentity = (_, index) => index
+export const numberArray = size => [ ...Array(size) ].map(indexIdentity)
+
 export const abs = i => Math.abs(i)
 export const max = arr => Math.max.apply(null, arr)
 export const min = arr => Math.min.apply(null, arr)
