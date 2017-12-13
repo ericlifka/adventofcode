@@ -1,3 +1,6 @@
+import { getInput
+} from './common'
+
 const makeStream = (string, position = 0) =>
     () => string[ position++ ]
 
@@ -13,7 +16,7 @@ let char
 let group
 let inTrash = false
 let trashCount = 0
-let stream = makeStream(getInput())
+let stream = makeStream(getInput('day9'))
 while (char = stream()) {
     if (inTrash && char === ">") 
         inTrash = false
@@ -35,10 +38,7 @@ while (char = stream()) {
 }
 
 const calcScore = (group, scoreLevel = 1) =>
-    scoreLevel + group.children.reduce((score, group) => score + calcScore(group, scoreLevel + 1), 0)
+    scoreLevel + group.children.reduce((score, group) => 
+                    score + calcScore(group, scoreLevel + 1), 0)
 
 console.log(`group score: ${calcScore(group)}, trash count: ${trashCount}`)
-
-function getInput() {
-return `... snip ...`
-}

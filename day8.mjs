@@ -1,4 +1,6 @@
-import { splitChar } from './common'
+import { getInput
+       , splitChar 
+} from './common'
 
 let maxSeen = 0
 const registers = { }
@@ -34,10 +36,11 @@ const buildInstruction = ([ register, direction, value, _if, condRegister, compa
     predicate: comparatorFn(condRegister, comparator, parseInt(compValue, 10))
 })
 
-let instructions = input()
-    .split('\n')
-    .map(splitChar(' '))
-    .map(buildInstruction)
+let instructions = 
+    getInput('day8')
+        .split('\n')
+        .map(splitChar(' '))
+        .map(buildInstruction)
 
 instructions.forEach(({register}) => setR(register, 0))
 instructions.forEach(({register, action, predicate}) => {
@@ -52,7 +55,3 @@ Object.keys(registers)
 
 console.log('part1 max: ', max)
 console.log('part2 max: ', maxSeen)
-
-function input() {
-return `... snip ...`
-}

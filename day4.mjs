@@ -1,5 +1,7 @@
-let words =
-`... snip ...`
+import { getInput
+} from './common'
+
+let words = getInput('day4')
 
 console.log('part1', 
 words

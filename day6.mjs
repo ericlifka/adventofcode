@@ -1,7 +1,11 @@
+import { getInput
+       , parseDecimal
+} from './common'
+
 let data =
-`... snip ...`
+getInput('day6')
     .split(/\s+/)
-    .map(n => parseInt(n, 10))
+    .map(parseDecimal)
 
 let cycles = 0
 let cache = { }

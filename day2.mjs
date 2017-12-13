@@ -1,14 +1,21 @@
-grid = 
-`... snip ...`
+import { getInput
+       , parseDecimal
+       , descending
+       , max
+       , min
+} from './common';
+
+let grid = 
+getInput('day2')
   .split('\n')
   .map(row => row
     .split(/\s+/)
-    .map(n => parseInt(n, 10))
-    .sort((l, r) => r - l))
+    .map(parseDecimal)
+    .sort(descending))
 
 console.log('part1',
 grid.reduce((total, row) => 
-  total + Math.max.apply(null, row) - Math.min.apply(null, row)
+  total + max(row) - min(row)
 , 0))
 
 console.log('part2',

@@ -1,5 +1,6 @@
 import { getInput
-       , removeComma 
+       , removeComma
+       , splitChar
 } from './common'
 
 const NODE_CACHE = { }
@@ -52,7 +53,7 @@ function findImbalance(node) {
 
 let nodes = getInput('day7')
     .split('\n')
-    .map(desc => desc.split(' '))
+    .map(splitChar(' '))
     .map(buildNode)
     .map(link)
 

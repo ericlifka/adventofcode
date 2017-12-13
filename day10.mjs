@@ -1,3 +1,6 @@
+import { getInput
+} from './common'
+
 const pad = str =>
     str.length >= 2 ? str :
         `0${str}`
@@ -20,7 +23,7 @@ const chunkArray = array =>
           ...chunkArray(array.slice(16)) ]
 
 const parseInput = () =>
-    `94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243`
+    getInput('day10')
         .split('')
         .map(getCharCode)
 

@@ -1,7 +1,11 @@
+import { getInput
+       , parseDecimal
+} from './common'
+
 let maze =
-`...snip...`
+getInput('day5')
     .split('\n')
-    .map(n => parseInt(n, 10))
+    .map(parseDecimal)
 
 let position = 0
 let steps = 0

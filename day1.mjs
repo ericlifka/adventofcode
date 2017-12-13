@@ -1,7 +1,11 @@
-let numbers = 
-`... snip ...`
+import { getInput
+       , parseDecimal
+} from './common';
+
+let numbers =
+getInput('day1')
   .split('')
-  .map(n => parseInt(n, 10))
+  .map(parseDecimal)
 
 let sum = 0
 for (let index = 0; index < numbers.length; index++)

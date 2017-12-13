@@ -1,5 +1,6 @@
 import { splitChar 
        , getInput
+       , removeComma
 } from './common'
 
 let programs =

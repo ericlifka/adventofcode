@@ -1,3 +1,7 @@
+import { getInput
+       , parseDecimal
+} from './common'
+
 let cache = { '0.0': 1 }
 const coordToKey = ({x, y}) => `${x}.${y}`
 const getVal = (coord) => cache[ coordToKey(coord) ] || 0
@@ -52,9 +56,11 @@ function iterateSpiralNumbers(callback) {
     }
 }
 
+const target = parseDecimal(getInput('day3'))
+
 console.log('part1',
 iterateSpiralNumbers((number, coord) => {
-    if (number === 312051)
+    if (number === target)
         return { distance: Math.abs(coord.x) + Math.abs(coord.y), coord }
 }))
 
@@ -66,6 +72,6 @@ iterateSpiralNumbers((number, coord) => {
 
     setVal(coord, sum)
 
-    if (sum > 312051)
+    if (sum > target)
         return { sum, coord }
 }))
