@@ -25,8 +25,6 @@ layers.reduce((sum, [ depth, range ]) =>
             0
 , 0))
 
-for (var delay = 0; ; ++delay)
-    if (checkLayers(delay, layers))
-        break
-
+let delay = 0
+while (!checkLayers(++delay, layers)) ;
 console.log('part2', delay)
