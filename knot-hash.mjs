@@ -1,9 +1,8 @@
 import { numberArray
 } from './common'
 
-const pad = str =>
-    str.length >= 2 ? str :
-        `0${str}`
+const pad = str => 
+    str.padStart(2, "0")
 
 const tohex = num =>
     pad(num.toString(16).toLowerCase())
