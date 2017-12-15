@@ -1,0 +1,3 @@
+import { getInput
+} from './common'
+
