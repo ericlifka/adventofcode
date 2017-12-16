@@ -44,18 +44,15 @@ export const flatten = arr =>
                 flatten(element) :
                 element))
 
-export const subtractSet = ([item, ...rest], filterSet) =>
-    item === undefined ? [ ] :
-        filterSet.indexOf(item) > -1 ?
-            subtractSet(rest, filterSet) :
-            [ item, ...subtractSet(rest, filterSet) ]
+export const subtractSet = (set, filterSet) =>
+    set.filter(item => filterSet.indexOf(item) === -1)
 
 export const abs = i => Math.abs(i)
 export const max = arr => Math.max.apply(null, arr)
 export const min = arr => Math.min.apply(null, arr)
 
 export const coord = (x = 0, y = 0) => ({ x , y })
-export const coordCacheKey = coord => `(${coord.x}.${coord.y})`
+export const coordCacheKey = ({ x , y }) => `(${x}.${y})`
 
 export const addCoords =
 ( {x:x1, y:y1}
