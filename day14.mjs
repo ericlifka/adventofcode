@@ -1,18 +1,40 @@
 import { knotHash } from './knot-hash'
 import { getInput
+       , identity
+       , flatten
        , numberArray
        , hexToBinary
        , splitChar
+       , coord
+       , gridNeighbors
+       , parseDecimal
 } from './common'
 
-let inputString = getInput('day14')
+const programName = ({x, y}) =>
+    parseDecimal(`${y}`.padStart(3, '0') + `${x}`.padStart(3, '0'))
+
+const getBit = (bitGrid, {x, y}) =>
+    bitGrid[ y ] === undefined ? '0' :
+        bitGrid[ y ][ x ] === undefined ? '0' :
+            bitGrid[ y ][ x ]
+
+const inputString = getInput('day14')
+
 console.log(
-numberArray(128)
+flatten(numberArray(128)
     .map(row => `${inputString}-${row}`)
     .map(knotHash)
     .map(hexToBinary)
     .map(splitChar(''))
-    .map(bits => bits
-            .reduce((sum, bit) => bit === '1' ? sum + 1 : sum, 0))
-    .reduce((sum, row) => sum + row, 0)
+    .map((row, y, bitGrid) => row
+        .map((bit, x) =>
+            programName({x, y})
+            + ' <-> '
+            + ( gridNeighbors(coord(x, y), false)
+                    .map((coord, _, __, bit = getBit(bitGrid, coord)) =>
+                        bit === '1' ? programName(coord) : null)
+                    .filter(identity)
+                    .join(', ')
+                || programName({x, y}))))
+).join('\n')
 )

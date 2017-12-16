@@ -33,8 +33,22 @@ export const parseDecimal = str =>
 export const ascending = (l, r) => l - r
 export const descending = (l, r) => r - l
 
+export const identity = thing => thing
 export const indexIdentity = (_, index) => index
 export const numberArray = size => [ ...Array(size) ].map(indexIdentity)
+
+export const flatten = arr =>
+    [].concat.apply([],
+        arr.map(element =>
+            Array.isArray(element) ?
+                flatten(element) :
+                element))
+
+export const subtractSet = ([item, ...rest], filterSet) =>
+    item === undefined ? [ ] :
+        filterSet.indexOf(item) > -1 ?
+            subtractSet(rest, filterSet) :
+            [ item, ...subtractSet(rest, filterSet) ]
 
 export const abs = i => Math.abs(i)
 export const max = arr => Math.max.apply(null, arr)
@@ -61,13 +75,14 @@ export const axialDistance =
       abs(x1 - x2) +
       abs(y1 - y2) ) / 2
 
+const directNeighbors = [ coord(0, 1), coord(1, 0), coord(0, -1), coord(-1, 0) ]
+const diagonalNeighbors = [ coord(-1, 1), coord(1, 1), coord(1, -1), coord(-1, -1) ]
 export const gridNeighbors =
-(position = coord()) =>
-    [ coord(-1,  1), coord(0,  1), coord(1,  1),
-      coord(-1,  0),               coord(1,  0),
-      coord(-1, -1), coord(0, -1), coord(1, -1) ]
-    .map(neighbor =>
-        addCoords(position, neighbor))
+(position = coord(), includeDiagonals = true) =>
+    ( includeDiagonals ?
+        [ ...directNeighbors, ...diagonalNeighbors ] :
+        directNeighbors )
+    .map(neighbor => addCoords(position, neighbor))
 
 export const axialNeighbors =
 (position = coord()) =>
